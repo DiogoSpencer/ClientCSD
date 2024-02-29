@@ -1,0 +1,35 @@
+#Command to generate nodes private key:
+
+keytool -genkey -alias node1 -keyalg RSA -validity 365 -keystore node1.ks -storetype pkcs12
+
+keytool -genkey -alias node2 -keyalg RSA -validity 365 -keystore node2.ks -storetype pkcs12
+
+keytool -genkey -alias node3 -keyalg RSA -validity 365 -keystore node3.ks -storetype pkcs12
+
+keytool -genkey -alias node4 -keyalg RSA -validity 365 -keystore node4.ks -storetype pkcs12
+
+#All generated keystores are protected with password: password
+
+#Commands to extract the certificate of each of the nodes:
+
+keytool -exportcert -alias node1 -keystore node1.ks -file node1.cert
+
+keytool -exportcert -alias node2 -keystore node2.ks -file node2.cert
+
+keytool -exportcert -alias node3 -keystore node3.ks -file node3.cert
+
+keytool -exportcert -alias node4 -keystore node4.ks -file node4.cert
+
+#Commands to create and import nodes certificates into a truststore:
+
+keytool -importcert -file node1.cert -alias node1 -keystore truststore.ks
+
+keytool -importcert -file node2.cert -alias node2 -keystore truststore.ks
+
+keytool -importcert -file node3.cert -alias node3 -keystore truststore.ks
+
+keytool -importcert -file node4.cert -alias node4 -keystore truststore.ks
+
+#The truststore was protected with password: password
+
+#Command lines to execute the test (requires running 'mvn install' on babel-core project until maven repository is update):
